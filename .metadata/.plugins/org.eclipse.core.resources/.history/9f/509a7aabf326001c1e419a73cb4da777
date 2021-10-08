@@ -1,0 +1,39 @@
+
+public class ListaArista 
+{
+	private Arista first;
+	private int contador;
+	
+	public ListaArista()
+	{
+		contador = 0;
+	}
+	
+	public void insertar(Arista arista)
+	{
+		arista.setNext(first);
+		first = arista;
+		contador++;
+	}
+	
+	public int getContador()
+	{
+		return contador;
+	}
+	
+	//Buscar si arista existe en dos punto seleccionados
+	public boolean buscarArista(Nodo n1, Nodo n2)
+	{
+		Arista aux = first;
+		
+		while(aux != first)
+		{
+			if(aux.getPrimerNodo().getNombre().equals(n1.getNombre())) return true;
+			if(aux.getSegundoNodo().getNombre().equals(n2.getNombre()))return true;
+		}
+		
+		return false;
+	}
+	
+	
+}

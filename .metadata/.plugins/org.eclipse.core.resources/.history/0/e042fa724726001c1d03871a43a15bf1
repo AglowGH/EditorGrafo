@@ -1,0 +1,15 @@
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+
+public class BackgroundTask extends SwingWorker<String,Void>
+{
+
+	protected String doInBackground() throws Exception {
+		String nombre = "valor";
+		
+		nombre = (String) JOptionPane.showInputDialog(null,"Nombre del Vertice: ","Ingresar Datos",JOptionPane.QUESTION_MESSAGE,null,null,"Valor");
+		
+		return nombre;
+	}
+
+}

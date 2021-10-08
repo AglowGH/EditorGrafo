@@ -1,0 +1,11 @@
+import javax.swing.JOptionPane;
+
+public class MyThread extends Thread 
+{
+	static String name = null;
+	public void run()
+	{
+		
+		name = (String)JOptionPane.showInputDialog("Nombre: ");
+	}
+}

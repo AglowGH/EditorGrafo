@@ -1,0 +1,15 @@
+import javax.swing.JOptionPane;
+
+public class Main 
+{
+	public static void main(String[] args)
+	{
+		MyFrame myFrame;
+		myFrame = new MyFrame();
+		myFrame.mostrarFrame();
+		
+		String nombre = JOptionPane.showInputDialog("Your name: ");
+		System.out.println(nombre);
+	}
+	
+}

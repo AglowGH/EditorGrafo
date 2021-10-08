@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/home/ricardo/eclipse-workspace/EditorGrafo/.metadata/.plugins/org.eclipse.jdt.core
+2477214411.index
+1865797976.index
+618375816.index

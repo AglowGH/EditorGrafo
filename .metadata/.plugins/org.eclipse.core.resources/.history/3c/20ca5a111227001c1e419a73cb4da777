@@ -1,0 +1,103 @@
+import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import javax.swing.*;
+
+public class MyPanel extends JPanel
+{
+	public static ListaLigada lista = new ListaLigada();
+	public static ListaArista aristas = new ListaArista();
+	private Point2D coordenadas = null;
+	public static Point2D coordenadas2 = null;
+	private String name = null;
+	private int contadorNodos = 0;
+	private static final long serialVersionUID = 1L;
+
+	MyPanel()
+	{
+		this.setPreferredSize(new Dimension(500,500));
+		this.addMouseListener(new MouseAdapter()
+		{
+			
+			public void mouseClicked(MouseEvent evento)
+			{
+				if(MyFrame.activarMouse == true) 
+				{
+					coordenadas = evento.getPoint();
+					repaint();
+				}
+			}
+			
+		});
+	}
+	
+	public void paint(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D)g;
+		if(coordenadas != null)
+		{
+			if(!lista.buscarEntreRangos(coordenadas, 60, 15, 15))
+			{
+				g2.setPaint(Color.black);
+				contadorNodos +=1;
+				name = String.valueOf(contadorNodos);
+				lista.insertar(coordenadas,name);
+				g2.fillOval((int)coordenadas.getX(),(int)coordenadas.getY(),15,15);
+				g2.setFont(new Font("Ink Free",Font.BOLD,10));
+				g2.drawString(name,(int)coordenadas.getX(),(int)coordenadas.getY()-10);
+				coordenadas2 = null;
+				MyFrame.verticeSeleccionado = null;
+				System.out.println("(" + coordenadas.getX() + "," + coordenadas.getY() + ")");
+			
+			}else if(lista.buscarEntreRangos(coordenadas, 0, 15, 15))
+			{
+				if(coordenadas2 == null)
+				{
+					MyFrame.verticeSeleccionado = lista.buscarNodo(coordenadas, 15, 15);
+					coordenadas2 = coordenadas;
+				}else
+				{
+					Nodo n1 = lista.buscarNodo(coordenadas,15,15);
+					Nodo n2 = lista.buscarNodo(coordenadas2,15, 15);
+					Arista arista = aristas.buscarArista(n1, n2);
+					if(arista == null && n1 != n2)
+					{
+						g2.drawLine((int)coordenadas2.getX(),(int)coordenadas2.getY(),(int)coordenadas.getX(),(int)coordenadas.getY());
+						aristas.insertar(new Arista(n2,n1,0));
+					}else if(n1 != n2)
+					{
+						MyFrame.aristaSeleccionada = arista;
+					}else
+					{
+						MyFrame.aristaSeleccionada = null;
+					}
+					
+					coordenadas2 = null;
+				}
+			}
+		}
+	}
+	
+	public static void actualizaInfo()
+	{
+		if(MyFrame.nombre != null)
+		{
+			//lista.cambiarNombre(MyFrame.nombre,MyFrame.verticeSeleccionado);
+			MyFrame.verticeSeleccionado.setNombre(MyFrame.nombre);
+			MyFrame.verticeSeleccionado = null;
+			MyFrame.nombre = null;
+			return;
+		}
+		
+		if(MyFrame.peso != 0)
+		{
+			
+			MyFrame.aristaSeleccionada = null;
+			MyFrame.peso = 0;
+			return;
+		}
+	}
+}

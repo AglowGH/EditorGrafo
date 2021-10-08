@@ -1,0 +1,36 @@
+
+import java.awt.geom.Point2D;
+
+public class ListaLigada 
+{
+	private Nodo first = null;
+	private int contador;
+	
+	public ListaLigada()
+	{
+		first = null;
+		contador = 0;
+	}
+	
+	public void insertar(Point2D c)
+	{
+		Nodo nodo =  new Nodo(c);
+		nodo.setNext(first);
+		first = nodo;
+		contador++;
+	}
+	
+	public boolean eliminar(Point2D c)
+	{
+		if(contador == 0 )return false;
+		//Todo eliminar coordenadas que se indican en el argumento de esta funcion
+		//Igual puedes hacerlo entre rangos
+		contador--;
+		return true;
+	}
+	
+	public void buscarEntreRangos()
+	{
+		//Todo buscar si es posible insertar un vertice entre determinado espacio
+	}
+}
